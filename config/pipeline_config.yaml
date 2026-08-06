@@ -1,0 +1,15 @@
+s3:
+  bucket_name: "my-data-warehouse-raw-bucket"
+  raw_prefix: "sales/raw"
+
+redshift:
+  host: "my-redshift-cluster.example.amazonaws.com"
+  port: 5439
+  database: "analytics"
+  iam_role: "arn:aws:iam::123456789012:role/RedshiftLoadRole"
+
+snowflake:
+  account: "my-snowflake-account"
+  warehouse: "ANALYTICS_WH"
+  database: "ANALYTICS_DB"
+  schema: "STAGING"
