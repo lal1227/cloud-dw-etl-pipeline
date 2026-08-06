@@ -1,9 +1,4 @@
-"""
-S3 ingestion utility for the cloud data warehouse ETL pipeline.
-
-Uploads local raw data extracts to an S3 bucket under a date-partitioned
-prefix, and provides a helper to download objects back for inspection.
-"""
+"""Uploads raw sales extracts to S3, one prefix per ingestion date."""
 
 import os
 from datetime import date
@@ -28,7 +23,7 @@ def upload_file(s3_client, local_path, bucket=BUCKET_NAME):
     filename = os.path.basename(local_path)
     key = build_object_key(filename)
     s3_client.upload_file(local_path, bucket, key)
-    print(f"Uploaded {local_path} to s3://{bucket}/{key}")
+    print(f"uploaded {local_path} -> s3://{bucket}/{key}")
     return key
 
 
@@ -43,7 +38,7 @@ def upload_directory(s3_client, directory=RAW_DATA_DIR, bucket=BUCKET_NAME):
 
 def download_object(s3_client, key, destination_path, bucket=BUCKET_NAME):
     s3_client.download_file(bucket, key, destination_path)
-    print(f"Downloaded s3://{bucket}/{key} to {destination_path}")
+    print(f"downloaded s3://{bucket}/{key} -> {destination_path}")
 
 
 if __name__ == "__main__":
